@@ -15,4 +15,4 @@ RUN ./gradlew clean build -x test
 EXPOSE 8080
 
 # Run the app
-CMD [ "java", "-jar", "./build/libs/account-service-0.0.1-SNAPSHOT.jar" ]
+CMD [ "java", "-jar", "/home/app/build/libs/account-service-0.0.1-SNAPSHOT.jar" ]

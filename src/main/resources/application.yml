@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: account-service
+  datasource:
+    url: ${HOST_POSTGRESQL}
+    username: ${USERNAME_POSTGRESQL}
+    password: ${PASSWORD_POSTGRESQL}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  error:
+    include-stacktrace: never
