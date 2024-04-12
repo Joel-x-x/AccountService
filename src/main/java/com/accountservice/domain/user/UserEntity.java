@@ -27,11 +27,11 @@ public class UserEntity {
     private String password;
     private Boolean email_confirmed;
 
-    public UserEntity(DataSaveUser dataSaveUser) {
+    public UserEntity(DataSaveUser dataSaveUser, String password) {
         this.username = dataSaveUser.username();
         this.fullname = dataSaveUser.fullname();
         this.email = dataSaveUser.email();
-        this.password = dataSaveUser.password();
+        this.password = password;
         this.email_confirmed = false;
     }
 }

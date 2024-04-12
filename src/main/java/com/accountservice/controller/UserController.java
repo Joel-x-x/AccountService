@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,9 +24,12 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @PostMapping
     public ResponseEntity<DataResponseSuccessfully> createUser(@RequestBody @Valid DataSaveUser dataSaveUser, UriComponentsBuilder uriComponentsBuilder) {
-        UserEntity userEntity = userRepository.save(new UserEntity(dataSaveUser));
+        UserEntity userEntity = userRepository.save(new UserEntity(dataSaveUser, passwordEncoder.encode(dataSaveUser.password())));
 
         URI uri = uriComponentsBuilder.path("/api/v1/users/{id}").buildAndExpand(userEntity.getUser_id()).toUri();
 
