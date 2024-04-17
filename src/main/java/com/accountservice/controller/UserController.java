@@ -33,7 +33,7 @@ public class UserController {
 
         URI uri = uriComponentsBuilder.path("/api/v1/users/{id}").buildAndExpand(userEntity.getUser_id()).toUri();
 
-        return ResponseEntity.created(uri).body(new DataResponseSuccessfully(HttpStatus.CREATED, "User " + userEntity.getUsername() + "has been created successfully"));
+        return ResponseEntity.created(uri).body(new DataResponseSuccessfully(HttpStatus.CREATED, "User " + userEntity.getUsername() + " has been created successfully"));
     }
 
     @GetMapping
