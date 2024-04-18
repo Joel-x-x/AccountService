@@ -20,11 +20,11 @@ public class ErrorController {
     }
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<?> tratarNullPointerException(Exception e) {
-        return ResponseEntity.badRequest().body(new DataResponseError(HttpStatus.BAD_REQUEST, new ArrayList<>(List.of(e.getMessage()))));
+        return ResponseEntity.badRequest().body(new DataResponseError("400", new ArrayList<>(List.of(e.getMessage()))));
     }
     @ExceptionHandler(IntegrityValidation.class)
     public ResponseEntity<?> errorHandlerBusinessValidation(Exception e) {
-        return ResponseEntity.badRequest().body(new DataResponseError(HttpStatus.BAD_REQUEST, new ArrayList<>(List.of(e.getMessage()))));
+        return ResponseEntity.badRequest().body(new DataResponseError("400", new ArrayList<>(List.of(e.getMessage()))));
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> tratarError400(MethodArgumentNotValidException e) {

@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 public record DataResponseError(
-        HttpStatus status,
+        String status,
         List<String> errors
 ) {
 }
