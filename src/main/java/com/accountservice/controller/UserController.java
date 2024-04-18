@@ -4,7 +4,11 @@ import com.accountservice.domain.user.DataResponseUser;
 import com.accountservice.domain.user.DataSaveUser;
 import com.accountservice.domain.user.UserEntity;
 import com.accountservice.domain.user.UserRepository;
+import com.accountservice.infra.error.DataResponseError;
 import com.accountservice.infra.error.DataResponseSuccessfully;
+import com.accountservice.infra.error.IntegrityValidation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,12 +34,15 @@ public class UserController {
     PasswordEncoder passwordEncoder;
 
     @PostMapping
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User created successfully"),
+//            @ApiResponse(responseCode = "500", description = "Internal server error - An unexpected error occurred on the server")
+    })
     public ResponseEntity<DataResponseSuccessfully> createUser(@RequestBody @Valid DataSaveUser dataSaveUser, UriComponentsBuilder uriComponentsBuilder) {
         UserEntity userEntity = userRepository.save(new UserEntity(dataSaveUser, passwordEncoder.encode(dataSaveUser.password())));
-
         URI uri = uriComponentsBuilder.path("/api/v1/users/{id}").buildAndExpand(userEntity.getUser_id()).toUri();
-
         return ResponseEntity.created(uri).body(new DataResponseSuccessfully("201", "User " + userEntity.getUsername() + " has been created successfully"));
+
     }
 
     @GetMapping
