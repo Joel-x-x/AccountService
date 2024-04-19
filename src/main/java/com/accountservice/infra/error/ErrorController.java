@@ -32,6 +32,11 @@ public class ErrorController {
         return ResponseEntity.badRequest().body(dataErrorValidation);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<DataResponseError> handleException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new DataResponseError("500", new ArrayList<>(List.of("Internal Server Error"))));
+    }
+
     private record DataErrorValidation(String campo, String error) {
         public DataErrorValidation(FieldError fieldError) {
             this(fieldError.getField(), fieldError.getDefaultMessage());

@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully"),
-//            @ApiResponse(responseCode = "500", description = "Internal server error - An unexpected error occurred on the server")
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public ResponseEntity<DataResponseSuccessfully> createUser(@RequestBody @Valid DataSaveUser dataSaveUser, UriComponentsBuilder uriComponentsBuilder) {
         UserEntity userEntity = userRepository.save(new UserEntity(dataSaveUser, passwordEncoder.encode(dataSaveUser.password())));
@@ -44,7 +44,6 @@ public class UserController {
         return ResponseEntity.created(uri).body(new DataResponseSuccessfully("201", "User " + userEntity.getUsername() + " has been created successfully"));
 
     }
-
     @GetMapping
     public ResponseEntity<Page<DataResponseUser>> listUsers(Pageable pageable) {
         return ResponseEntity.ok(userRepository.findAll(pageable).map(DataResponseUser::new));
