@@ -2,6 +2,7 @@ package com.accountservice.domain.user.service.validations;
 
 import com.accountservice.domain.user.DataUpdateUser;
 import com.accountservice.domain.user.UserRepository;
+import com.accountservice.infra.error.IntegrityValidation;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class ValidateUniqueUsername implements ValidationsUpdateUser{
         }
 
         if(userRepository.existsByUsername(dataUpdateUser.username())) {
-            throw new ValidationException("This username already exists");
+            throw new IntegrityValidation("This username already exists");
         }
     }
 }

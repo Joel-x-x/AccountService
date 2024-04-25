@@ -2,6 +2,7 @@ package com.accountservice.domain.user.service.validations;
 
 import com.accountservice.domain.user.DataUpdateUser;
 import com.accountservice.domain.user.UserRepository;
+import com.accountservice.infra.error.IntegrityValidation;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class ValidateUniqueEmail implements ValidationsUpdateUser{
         }
 
         if(userRepository.existsByEmail(dataUpdateUser.email())) {
-            throw new ValidationException("This email already exists.");
+            throw new IntegrityValidation("This email already exists.");
         }
     }
 }
