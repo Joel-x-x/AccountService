@@ -61,9 +61,9 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll(pageable).map(DataResponseUser::new));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DataResponseUser> getUserData(@PathVariable UUID id) {
-        UserEntity userEntity = userRepository.findById(id).get();
+    @GetMapping("/{user_id}")
+    public ResponseEntity<DataResponseUser> getUserData(@PathVariable UUID user_id) {
+        UserEntity userEntity = userRepository.findById(user_id).get();
 
         return ResponseEntity.ok(new DataResponseUser(userEntity));
     }
